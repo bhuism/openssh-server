@@ -1,3 +1,3 @@
-FROM debian/sid-20250203-slim
+FROM debian:sid-20250203-slim
 
 
