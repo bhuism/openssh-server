@@ -11,4 +11,4 @@ RUN sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 2/g' /etc/ssh/sshd_conf
 
 EXPOSE 2222
 
-ENTRYPOINT [ "/bin/sh", "-c", "/etc/init.d/ssh start ; while [ ! -f /tmp/shutdown ]; do sleep 1 ; done" ]
+ENTRYPOINT [ "/bin/sh", "-c", "/etc/init.d/ssh start ; while [ ! -f /tmp/shutdown ]; do sleep 1 ; done ; /etc/init.d/ssh stop" ]
