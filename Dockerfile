@@ -6,6 +6,9 @@ RUN apt -y purge systemd
 RUN apt -y autoremove
 RUN apt -y clean
 
+RUN sed -i 's/#Port 22/Port 2222/g' /etc/ssh/sshd_config
+RUN sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 2/g' /etc/ssh/sshd_config
+
 EXPOSE 2222
 
-ENTRYPOINT [ "/bin/sh", "-c", "/etc/init.d/ssh start ; while [ ! -f /tmp/shutdown ]; do sleep 1 done" ]
+ENTRYPOINT [ "/bin/sh", "-c", "/etc/init.d/ssh start ; while [ ! -f /tmp/shutdown ]; do sleep 1 ; done" ]
