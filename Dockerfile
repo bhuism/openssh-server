@@ -6,8 +6,6 @@ RUN apt -y purge systemd
 RUN apt -y autoremove
 RUN apt -y clean
 
-COPY entrypoint.sh /entrypoint.sh
-
 EXPOSE 2222
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT [ "/bin/sh", "-c", "/etc/init.d/ssh start ; while [ ! -f /tmp/shutdown ]; do sleep 1 done" ]
