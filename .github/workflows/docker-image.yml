@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubunth-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -20,7 +20,7 @@ jobs:
           push: false
 
   deploy:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubunth-latest
     needs: build
     if: github.ref_type == 'tag'
     permissions:
@@ -54,11 +54,18 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Push Docker image
         id: push
         uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
