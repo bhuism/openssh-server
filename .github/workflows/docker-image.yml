@@ -46,7 +46,17 @@ jobs:
           type=ref,event=pr
           type=sha
 
-    - name: Build and push Docker image
+    - name: Build Docker image
+      id: build
+      uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
+      with:
+        context: .
+        push: false
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Push Docker image
+      if: github.event_name != 'pull_request'
       id: push
       uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
       with:
@@ -55,7 +65,10 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
     
+
+
     - name: Generate artifact attestation
+      if: github.event_name != 'pull_request'
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
