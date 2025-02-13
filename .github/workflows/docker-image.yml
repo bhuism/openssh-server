@@ -9,6 +9,20 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        id: build
+        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
+        with:
+          context: .
+          push: false
+
+  deploy:
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    if: github.ref_type == 'tag'
     permissions:
       packages: write
       contents: read
@@ -16,7 +30,6 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
 
       - name: Log in to the Container registry
         uses: docker/login-action@327cd5a69de6c009b9ce71bce8395f28e651bf99
@@ -39,26 +52,6 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
 
-      - name: Build Docker image
-        id: build
-        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
-        with:
-          context: .
-          push: false
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-  deploy:
-    runs-on: ubuntu-24.04-arm
-    needs: build
-    if: github.ref_type == 'tag'
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
-      id-token: write
-
-    steps:
       - name: Push Docker image
         id: push
         uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
