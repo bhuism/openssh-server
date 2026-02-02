@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Build Docker image
         id: build
@@ -31,7 +31,7 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Log in to the Container registry
         uses: docker/login-action@0567fa5ae8c9a197cb207537dc5cbb43ca3d803f
