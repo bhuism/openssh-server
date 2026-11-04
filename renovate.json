@@ -7,22 +7,14 @@
   ],
   "packageRules": [
     {
-      "matchFileNames": [
-        "^charts/.+\\.ya?ml$"
-      ],
       "matchUpdateTypes": [
         "patch",
         "minor",
         "pin",
-        "digest"
-      ],
-      "automerge": false
-    },
-    {
-      "matchUpdateTypes": [
+        "digest",
         "major"
       ],
-      "dependencyDashboardApproval": true
+      "automerge": true
     }
   ]
 }
