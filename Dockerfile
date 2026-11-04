@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt -y -qq update
-RUN apt -y -qq install openssh-server joe rsync nmap tcpdump net-tools iputils-ping telnet psmisc lsb-release wget curl locales-all bind9-dnsutils procps file unrar-free
+RUN apt -y -qq install openssh-server joe rsync nmap tcpdump net-tools iputils-ping telnet psmisc lsb-release wget curl locales-all bind9-dnsutils procps file unrar-free iproute2
 RUN apt -y -qq full-upgrade
 RUN apt -y autoremove
 RUN apt -y clean
