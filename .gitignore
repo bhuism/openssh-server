@@ -1,0 +1,38 @@
+# Operating System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs and Text Editors
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.vscode/
+*.swp
+*.swo
+*~
+*.bak
+
+# Environment and Secret Files
+.env
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Docker Local Artifacts
+.docker/
